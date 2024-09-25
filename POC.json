@@ -1,0 +1,155 @@
+{
+  "name": "POC_Audit",
+  "base": "IEC 62443",
+  "description": "Audit POC for A3S3 on Android applications as medical devices based on IEC 62443 Foundational Requirement (FR) 5",
+  "audit_version": 1.0,
+  "a3s3_version": 1.0,
+  "date_created": "11/09/2024",
+  "controls": [
+    {
+      "name": "FR5 Restrict Data Flows",
+      "sub":"Firebase API",
+      "audit_controls": [
+        {
+        "source":"Android.imports",
+        "signs":[
+          {
+            "sign": "com.google.firebase"
+          }
+        ]
+        },
+        {
+        "source":"Android.urls",
+        "signs":[
+            {
+            "sign": "https://firebase.google.com"
+            }
+        ]
+        }
+      ]
+    },
+    {
+        "name": "FR5 Restrict Data Flows",
+        "sub":"Fitness API",
+        "audit_controls": [
+          {
+          "source":"Android.imports",
+          "signs":[
+            {
+              "sign": "com.google.android.gms.fitness.request"
+            }
+          ]
+          },
+          {
+            "source":"Android.urls",
+            "signs":[
+              {
+                "sign": "https://www.googleapis.com/auth/fitness"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "FR5 Restrict Data Flows",
+        "sub":"Bluetooth",
+        "audit_controls": [
+          {
+          "source":"Manifest.uses-permission",
+          "signs":[
+            {
+              "sign": "android.permission.BLUETOOTH"
+            }
+          ]
+          },
+          {
+            "source":"Android.imports",
+            "signs":[
+              {
+                "sign": "android.bluetooth"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "FR5 Restrict Data Flows",
+        "sub":"Google healthcare API",
+        "audit_controls": [
+          {
+          "source":"Android.imports",
+          "signs":[
+            {
+              "sign": "com.google.api.services.healthcare"
+            }
+          ]
+          },
+          {
+            "source":"Android.urls",
+            "signs":[
+              {
+                "sign": "healthcare.googleapis.com"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "FR5 Restrict Data Flows",
+        "sub":"Google wearable API",
+        "audit_controls": [
+          {
+          "source":"Android.imports",
+          "signs":[
+            {
+              "sign": "com.google.android.gms.wearable"
+            }
+          ]
+          }
+        ]
+      },
+      {
+        "name": "FR5 Restrict Data Flows",
+        "sub":"Internet",
+        "audit_controls": [
+          {
+          "source":"Manifest.uses-permission",
+          "signs":[
+            {
+              "sign": "android.permission.INTERNET"
+            }
+          ]
+          }
+        ]
+      },
+      {
+        "name": "FR5 Restrict Data Flows",
+        "sub":"Google Health Connect",
+        "audit_controls": [
+          {
+          "source":"Manifest.uses-permission",
+          "signs":[
+            {
+              "sign": "android.permission.health"
+            }
+          ]
+          }
+        ]
+      },
+      {
+        "name": "FR5 Restrict Data Flows",
+        "sub":"Body Sensors",
+        "audit_controls": [
+          {
+          "source":"Manifest.uses-permission",
+          "signs":[
+            {
+              "sign": "BODY_SENSORS"
+            }
+          ]
+          }
+        ]
+      }
+      
+  ]
+}
