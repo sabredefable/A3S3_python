@@ -152,7 +152,7 @@ class PipelineLayout(customtkinter.CTkFrame):
     def selected_option(self, value):
         match value:
             case "File":
-                self.apk_file_frame_button.configure(text="Select file",command=lambda title="Select a file", filetypes=[("apk files", "*.apk q")]: self.open_file_explorer(self.apk_file_frame_file, title, filetypes))
+                self.apk_file_frame_button.configure(text="Select file",command=lambda title="Select a file", filetypes=[("apk files", "*.apk"), ("xapk files", "*.xapk")]: self.open_file_explorer(self.apk_file_frame_file, title, filetypes))
                 self.apk_file_frame_file.configure(text="Choose a file")
             case "Batch":
                 self.apk_file_frame_button.configure(text="Select directory", command=lambda title="Select a directory": self.open_file_explorer(self.apk_file_frame_file, title))
@@ -172,17 +172,20 @@ class PipelineLayout(customtkinter.CTkFrame):
         if (audit_file in blank or path_to_apk in blank or output_directory in blank) :
             self.error_message("Please complete the missing fields.")
         elif audit_option == "File":
-            file_name = path_to_apk.split("/")[-1][:-4]
+            if path_to_apk.endswith(".xapk"):
+                file_name = path_to_apk.split("/")[-1][:-5]
+            else:
+                file_name = path_to_apk.split("/")[-1][:-4]
             temp_output_directory = output_directory + f"/{file_name}"
             self.audit_pipe(file_name, temp_output_directory, decompiler, path_to_apk, extractor, audit_file, csv_export, xls_export)
         elif audit_option == "Batch":
             json_batch = []
             for file in os.listdir(path_to_apk):
                 if file.endswith(".apk") or file.endswith(".xapk"):
-                    if file.endswith(".apk"):
-                        file_name = file[:-4]
-                    else:
+                    if file.endswith(".xapk"):
                         file_name = file[:-5]
+                    else:
+                        file_name = file[:-4]
                     file_path = f"{path_to_apk}/{file}"
                     temp_output_directory = output_directory + f"/{file_name}"
                     self.audit_pipe(file_name, temp_output_directory, decompiler, file_path, extractor, audit_file, csv_export, xls_export)

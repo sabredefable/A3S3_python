@@ -45,6 +45,6 @@ class A3S3_Decompilers:
             if os.path.isdir(f"{self.output_dir}/sources"):
                 print("File already decompiled")
             else:
-                subprocess.run(self.command, check=True)
+                subprocess.run(self.command, capture_output=True, text=True)
         else:
-            subprocess.run(self.command, check=True)
+            subprocess.run(self.command, capture_output=True, text=True)
